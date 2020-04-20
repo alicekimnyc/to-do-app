@@ -1,9 +1,10 @@
 
 .demo-card-square.mdl-card {
   width: 800px;
-  height: 500px;
+  height: auto;
 }
 .demo-card-square > .mdl-card__title {
+  height: 420px;
   color: #fff;
   background:
     url('../images/succulents.png') bottom right 15% no-repeat #46B6AC;
