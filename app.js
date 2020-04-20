@@ -1,38 +1,44 @@
-function onReady () {
-const addToDoForm = document.getElementById('addToDoForm');
-const newToDoText = document.getElementById('newToDoText');
-const toDoList = document.getElementById('toDoList');
-addToDoForm.addEventListener('submit', () => {
-  event.preventDefault();
+function onReady (){
+  const ADD_TODO_FORM = document.getElementById('addToDoForm');
+  let toDos = [];
 
-  // get the text
-  let title = newToDoText.value;
+function renderTheUI(){
+  const TODO_LIST = document.getElementById('toDoList');
+  TODO_LIST.textContent = '';
+  
+    toDos.forEach(function(toDo){
+      const NEW_LI = document.createElement('li');
+      const CHECKBOX = document.createElement('input');
+      CHECKBOX.type = "checkbox";
 
-  // create a new li
-  let newLi = document.createElement('li');
+      NEW_LI.textContent = toDo.title;
 
-  // create a new input
-  let checkbox = document.createElement('input');
+      TODO_LIST.appendChild(NEW_LI);
+      NEW_LI.appendChild(CHECKBOX);
+})
 
-  // set the input's type to checkbox
-  checkbox.type = "checkbox";
-
-  // set the title
-  newLi.textContent = title;
-
-  // attach the checkbox to the li
-  newLi.appendChild(checkbox);
-
-  //attach the li to the ul
-  toDoList.appendChild(newLi);
-
-  //empty the input
-  newToDoText.value = '';
-});
 }
 
 
+  function createNewToDo() {
+    const NEW_TODO_TEXT = document.getElementById('newToDoText');
+    if(!NEW_TODO_TEXT.value){ return; }
+    toDos.push({
+      title: NEW_TODO_TEXT.value,
+      complete: false
+    });
+    NEW_TODO_TEXT.value = '';
+    renderTheUI();
+  }
+
+  ADD_TODO_FORM.addEventListener('submit', event => {
+    event.preventDefault();
+    createNewToDo();
+  });
+
+    renderTheUI();
+}
+
 window.onload = function() {
-  alert("The window has loaded!");
   onReady();
 };
